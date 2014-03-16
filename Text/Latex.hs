@@ -224,7 +224,13 @@ subsup a b x = sup (sub a x) b
 -- Fractions
 -------------------------------------------------------------------------------
 
+frac, cfrac, dfrac :: Doc -> Doc -> Doc
 frac a b = app "frac" [a,b]
+cfrac a b = app "cfrac" [a,b]
+dfrac a b = app "dfrac" [a,b]
+
+cfraction :: Doc -> [Doc] -> Doc
+cfraction = foldr frac
 
 -------------------------------------------------------------------------------
 -- Calculus
@@ -335,7 +341,7 @@ ddot l = undefined
 tilde l = undefined
 
 -------------------------------------------------------------------------------
--- Arrays
+-- Arrays and Alignment
 -------------------------------------------------------------------------------
 
 rows :: [Doc] -> Doc
@@ -349,3 +355,6 @@ arrbody = cols . map rows
 
 array :: [[Doc]] -> Doc
 array xs = be (text "array") (arrbody xs)
+
+align :: String -> [Doc] -> Doc
+align a xs  = bea (text "align*") (text a) (hsep $ punctuate (char '&') xs)
