@@ -17,9 +17,6 @@ bracesIf ::  Bool -> Doc -> Doc
 bracesIf True = braces
 bracesIf False = id
 
-spaced :: Pretty a => Int -> [a] -> Doc
-spaced p = hsep . map (ppr p)
-
 class Pretty p where
   ppr :: Int -> p -> Doc
 
@@ -178,12 +175,13 @@ greek = [
 -- Text Formats
 -------------------------------------------------------------------------------
 
-mathbf l = undefined
-mathrm l = undefined
-mathcal l = undefined
-mathsf l = undefined
-mathtt l = undefined
-mathit l = undefined
+mathbf, mathrm, mathcal, mathsf, mathtt, mathit :: Doc -> Doc
+mathbf l = app "mathbf" [l]
+mathrm l = app "mathrm" [l]
+mathcal l = app "mathcal" [l]
+mathsf l = app "mathsf" [l]
+mathtt l = app "mathtt" [l]
+mathit l = app "mathit" [l]
 
 -------------------------------------------------------------------------------
 -- Operator
@@ -193,19 +191,55 @@ operator :: String -> Doc -> Doc -> Doc
 operator o a b = a <+> cmd o <+> b
 
 -- Dot
+cdot :: Doc -> Doc -> Doc
 cdot = operator "cdot"
 
 -- Asterisk
+ast :: Doc -> Doc -> Doc
 ast = operator "ast"
 
 -- Circ
+circ :: Doc -> Doc -> Doc
 circ = operator "circ"
 
 -- Times
+times :: Doc -> Doc -> Doc
 times = operator "times"
 
 -- Bullet
+bullet :: Doc -> Doc -> Doc
 bullet = operator "bullet"
+
+-- Wedge
+wedge :: Doc -> Doc -> Doc
+wedge = operator "wedge"
+
+-- Wedge
+star :: Doc -> Doc -> Doc
+star = operator "star"
+
+-- Cup
+cup :: Doc -> Doc -> Doc
+cup = operator "cup"
+
+-- Cap
+cap :: Doc -> Doc -> Doc
+cap = operator "cap"
+
+oplus :: Doc -> Doc -> Doc
+oplus = operator "coplus"
+
+ominus :: Doc -> Doc -> Doc
+ominus = operator "ominus"
+
+otimes :: Doc -> Doc -> Doc
+otimes = operator "otimes"
+
+oslash :: Doc -> Doc -> Doc
+oslash = operator "oslash"
+
+odot :: Doc -> Doc -> Doc
+odot = operator "odot"
 
 -------------------------------------------------------------------------------
 -- Subscript and Superscript
@@ -329,16 +363,35 @@ prod _ _ x = cmd "prod" <+> x
 -- Accents
 -------------------------------------------------------------------------------
 
-hat l = undefined
-acute l = undefined
-bar l = undefined
-dot l = undefined
-breve l = undefined
-check l = undefined
-grave l = undefined
-vec l = undefined
-ddot l = undefined
-tilde l = undefined
+hat :: Doc -> Doc
+hat l = app "hat" [l]
+
+acute :: Doc -> Doc
+acute l = app "acute" [l]
+
+bar :: Doc -> Doc
+bar l = app "bar" [l]
+
+dot :: Doc -> Doc
+dot l = app "dot" [l]
+
+breve :: Doc -> Doc
+breve l = app "breve" [l]
+
+check :: Doc -> Doc
+check l = app "check" [l]
+
+grave :: Doc -> Doc
+grave l = app "grave" [l]
+
+vec :: Doc -> Doc
+vec l = app "vec" [l]
+
+ddot :: Doc -> Doc
+ddot l = app "ddot" [l]
+
+tilde :: Doc -> Doc
+tilde l = app "tilde" [l]
 
 -------------------------------------------------------------------------------
 -- Arrays and Alignment

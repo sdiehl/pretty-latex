@@ -20,7 +20,7 @@ Source-Repository head
     Location: git@github.com:sdiehl/pretty-latex.git
 
 library
-  exposed-modules:     Pretty.Latex
+  exposed-modules:     Text.Latex
 
   ghc-options:        -Wall -fwarn-tabs -O2 
   cc-options:         -O3
